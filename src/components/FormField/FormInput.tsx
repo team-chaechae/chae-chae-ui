@@ -18,6 +18,7 @@ type FormInputProps = UseControllerProps & {
   classNameLabel?: string;
   icon?: React.ReactNode;
   labelPosition?: 'top' | 'right';
+  showErrorMessage?: boolean;
 };
 
 export const FormInput = ({
@@ -32,8 +33,12 @@ export const FormInput = ({
   icon,
   rules,
   labelPosition = 'top',
+  showErrorMessage,
 }: FormInputProps) => {
-  const { control } = useFormContext();
+  const { control, formState } = useFormContext();
+  const errorMessage = String(
+    formState.errors?.[name]?.message ?? '',
+  );
 
   return (
     <div
@@ -73,6 +78,11 @@ export const FormInput = ({
           )}
         />
       </div>
+      {showErrorMessage && errorMessage && (
+        <p className='text-xs text-red-400 px-2'>
+          {errorMessage}
+        </p>
+      )}
     </div>
   );
 };
