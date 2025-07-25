@@ -14,7 +14,7 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: 'bg-primary text-primary-foreground',
+        default: 'bg-[#1a1a1a] text-primary-foreground',
       },
       size: {
         default: 'h-[36px] px-[16px] py-[5px]',
@@ -37,7 +37,8 @@ const Button = React.forwardRef<
     <button
       type={type ?? 'button'}
       className={cn(
-        buttonVariants({ variant, size, className }),
+        buttonVariants({ variant, size }),
+        className,
       )}
       ref={ref}
       {...props}

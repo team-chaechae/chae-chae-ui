@@ -82,12 +82,12 @@ export const FormSelect = ({
             >
               <SelectTrigger
                 className={cn(
-                  'relative flex h-10 w-full items-center rounded-[4px] border !border-gray-200 focus:outline-none focus:border-none disabled:cursor-not-allowed',
+                  'relative flex h-10 w-full items-center gap-2 text-sm data-[placeholder]:text-neutral-500 data-[placeholder]:text-sm rounded-[4px] border border-black dark:border-white disabled:cursor-not-allowed',
                   classNameInput,
                 )}
               >
                 {icon && (
-                  <SelectIcon className='mr-4'>
+                  <SelectIcon className='mr-4 text-black dark:text-white'>
                     {icon}
                   </SelectIcon>
                 )}
@@ -103,10 +103,10 @@ export const FormSelect = ({
                   sideOffset={4}
                   align='start'
                   avoidCollisions={false}
-                  className='w-full rounded-md shadow-md border border-gray-200'
+                  className='w-[var(--radix-select-trigger-width)] rounded-md shadow-md border border-gray-200'
                 >
                   <SelectGroup>
-                    <SelectLabel className=' px-2 py-1'>
+                    <SelectLabel className='text-sm px-2 py-1'>
                       {placeholder}
                     </SelectLabel>
                     {items.map((item, index) => (
