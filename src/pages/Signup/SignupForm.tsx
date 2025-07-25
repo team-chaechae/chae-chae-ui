@@ -5,6 +5,7 @@ import {
   type SubmitHandler,
 } from 'react-hook-form';
 import {
+  Eye,
   EyeOff,
   LockKeyhole,
   Mail,
@@ -18,6 +19,7 @@ import { FormSelect } from '@/components/FormField/FormSelect';
 import { jobTitleOptions } from '@/constants/selectOptions';
 import { fetchClient } from '@/services/fetchClient';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 type FormValues = z.infer<typeof signupSchema>;
 export const SignUpForm = () => {
@@ -32,9 +34,12 @@ export const SignUpForm = () => {
     },
     resolver: zodResolver(signupSchema),
   });
+  const [isShowPassword, setIsShowPassword] =
+    useState(false);
   const navigate = useNavigate();
   const errorMessage =
     methods.formState.errors.root?.message ?? '';
+  const EyeIcon = isShowPassword ? Eye : EyeOff;
 
   const onSubmit: SubmitHandler<FormValues> = async (
     data: FormValues,
@@ -67,7 +72,10 @@ export const SignUpForm = () => {
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(onSubmit)}>
+      <form
+        onSubmit={methods.handleSubmit(onSubmit)}
+        className='border px-10 py-8 rounded-md'
+      >
         <div className='flex flex-col gap-3 w-[320px]'>
           <FormInput
             name='email'
@@ -81,14 +89,19 @@ export const SignUpForm = () => {
           />
           <FormInput
             name='password'
-            type='password'
+            type={isShowPassword ? 'text' : 'password'}
             placeholder='비밀번호'
             classNameInput='pl-10 pr-10'
             showErrorMessage
             icon={
               <>
                 <LockKeyhole className='absolute left-2 top-1/2 -translate-y-1/2' />
-                <EyeOff className='absolute right-3 top-1/2 -translate-y-1/2' />
+                <EyeIcon
+                  className='absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer'
+                  onClick={() =>
+                    setIsShowPassword(!isShowPassword)
+                  }
+                />
               </>
             }
           />
