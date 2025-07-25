@@ -103,7 +103,7 @@ export const FormSelect = ({
                   sideOffset={4}
                   align='start'
                   avoidCollisions={false}
-                  className='w-[var(--radix-select-trigger-width)] rounded-md shadow-md border border-gray-200'
+                  className='w-[var(--radix-select-trigger-width)] bg-neutral-300 dark:bg-black rounded-md shadow-md border border-gray-200'
                 >
                   <SelectGroup>
                     <SelectLabel className='text-sm px-2 py-1'>
