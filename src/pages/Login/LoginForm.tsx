@@ -50,6 +50,7 @@ export const LoginForm = () => {
         data: request,
       });
       navigate('/');
+      window.dispatchEvent(new Event('authChange'));
     } catch (error: unknown) {
       if (error instanceof Error) {
         console.error(error.message);
