@@ -15,6 +15,8 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default: 'bg-[#1a1a1a] text-white',
+        ghost:
+          'bg-transparent text-inherit hover:bg-neutral-300',
       },
       size: {
         default: 'h-[36px] px-[16px] py-[5px]',
