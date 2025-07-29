@@ -1,6 +1,6 @@
 @import 'tailwindcss';
 
-:root {
+#root {
   font-family:
     system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -10,15 +10,16 @@
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  @apply w-full max-w-screen-2xl min-h-screen;
 }
 
 body {
   margin: 0;
   @apply flex flex-col items-center;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 input::placeholder {
