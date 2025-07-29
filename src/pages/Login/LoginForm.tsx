@@ -13,6 +13,7 @@ import {
   useForm,
   type SubmitHandler,
 } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 type FormValues = {
   email: string;
@@ -28,9 +29,11 @@ export const LoginForm = () => {
   });
   const [isShowPassword, setIsShowPassword] =
     useState(false);
+  const navigate = useNavigate();
   const errorMessage =
     methods.formState.errors.root?.message ?? '';
   const EyeIcon = isShowPassword ? Eye : EyeOff;
+
   const onSubmit: SubmitHandler<FormValues> = async (
     data: FormValues,
   ) => {
@@ -46,6 +49,7 @@ export const LoginForm = () => {
         endpoint: '/users/login',
         data: request,
       });
+      navigate('/');
     } catch (error: unknown) {
       if (error instanceof Error) {
         console.error(error.message);
@@ -55,6 +59,7 @@ export const LoginForm = () => {
       }
     }
   };
+
   return (
     <FormProvider {...methods}>
       <form
