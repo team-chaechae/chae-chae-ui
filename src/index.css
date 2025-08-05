@@ -15,11 +15,17 @@
 
 body {
   margin: 0;
-  @apply flex flex-col items-center;
+  @apply flex flex-col items-center min-h-screen w-full;
 }
 
 * {
   box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
 }
 
 input::placeholder {
