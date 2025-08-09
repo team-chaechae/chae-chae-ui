@@ -12,7 +12,7 @@ export const Calendar = () => {
       nextLabel={<ChevronRight className='w-5 h-5' />}
       prev2Label={null}
       next2Label={null}
-      showNeighboringMonth={false}
+      showNeighboringMonth
     />
   );
 };
