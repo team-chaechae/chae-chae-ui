@@ -4,8 +4,8 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { Outlet } from 'react-router-dom';
 import { Header } from './components/layout/Header';
+import { MainLayout } from './components/layout/MainLayout';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -22,7 +22,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={true} />
       <Header />
-      <Outlet />
+      <MainLayout />
     </QueryClientProvider>
   );
 }
