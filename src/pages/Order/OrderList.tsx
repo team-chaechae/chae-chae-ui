@@ -1,11 +1,18 @@
 import { Input } from '@/components/ui/Input';
 import { ORDER_STATUS } from '@/constants/status';
 import { getOrders } from '@/services/orders';
-import type { GetOrderListResponseType } from '@/types/order';
+import type {
+  GetOrderListResponseType,
+  OrderDto,
+} from '@/types/order';
 import { formatYMDWithDots } from '@/utils/dateUtils';
 import { useQuery } from '@tanstack/react-query';
 
-export const OrderList = () => {
+export const OrderList = ({
+  onChangeSelected,
+}: {
+  onChangeSelected: (selected: OrderDto) => void;
+}) => {
   const { isLoading, data, error } = useQuery<
     GetOrderListResponseType,
     Error,
@@ -94,6 +101,7 @@ export const OrderList = () => {
                 <Input
                   type='checkbox'
                   className='w-4 h-4'
+                  onClick={() => onChangeSelected(order)}
                 />
               </td>
               <td className='px-4 py-3'>{index + 1}</td>
