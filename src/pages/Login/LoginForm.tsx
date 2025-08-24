@@ -44,11 +44,7 @@ export const LoginForm = () => {
       },
     };
     try {
-      await fetchClient({
-        method: 'POST',
-        endpoint: '/users/login',
-        data: request,
-      });
+      await fetchClient('POST', '/users/login', request);
       navigate('/');
       window.dispatchEvent(new Event('authChange'));
     } catch (error: unknown) {
