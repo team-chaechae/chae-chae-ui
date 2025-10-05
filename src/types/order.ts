@@ -4,6 +4,15 @@ export type GetOrderListResponseType = {
     page: Page;
   };
 };
+export type GetOrderListRequestType = {
+  id: string;
+  name: string;
+  category: string;
+  status: string;
+  createdBy: string;
+  startDate: string;
+  endDate: string;
+};
 export type OrderDto = {
   orderId: number;
   status: 'APPROVED' | 'COMPLETED' | 'CANCELLED';
