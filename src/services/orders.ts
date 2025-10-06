@@ -2,6 +2,7 @@ import type {
   GetOrderListRequestType,
   GetOrderListResponseType,
   UpdateOrderQuantityRequestType,
+  UpdateOrderStatusRequestType,
 } from '@/types/order';
 import { fetchClient } from './fetchClient';
 import type { PaginationType } from '@/types/pagination';
@@ -48,8 +49,11 @@ export function updateOrderQuantity({
     quantity,
   });
 }
-export function updateOrderStatus(id: string) {
+export function updateOrderStatus({
+  id,
+  status,
+}: UpdateOrderStatusRequestType) {
   return fetchClient('PATCH', `/orders/${id}/status`, {
-    orderId: id,
+    status,
   });
 }

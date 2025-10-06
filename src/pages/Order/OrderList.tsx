@@ -53,16 +53,22 @@ export const OrderList = ({
   return (
     <section>
       <OrderSearchForm setSearchForm={setSearchForm} />
-      <div className='flex items-center justify-end gap-3 pt-10 pb-3'>
-        <Button className='bg-[#181F4A]' onClick={onEdit}>
-          수정
-        </Button>
-        <Button
-          className='border border-blue-100'
-          onClick={onDelete}
-        >
-          삭제
-        </Button>
+
+      <div className='flex flex-col items-end gap-2 pt-10 pb-3'>
+        <div className='flex items-center gap-3'>
+          <Button className='bg-[#181F4A]' onClick={onEdit}>
+            수정
+          </Button>
+          <Button
+            className='border border-blue-100'
+            onClick={onDelete}
+          >
+            삭제
+          </Button>
+        </div>
+        <p className='text-xs text-neutral-400'>
+          * 승인 상태인 경우만 수정할 수 있습니다.
+        </p>
       </div>
       <div className='flex items-center'>
         <table className='w-full'>

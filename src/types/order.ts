@@ -36,3 +36,8 @@ export type UpdateOrderQuantityRequestType = {
   id: number;
   quantity: number;
 };
+
+export type UpdateOrderStatusRequestType = {
+  id: number;
+  status: string;
+};
