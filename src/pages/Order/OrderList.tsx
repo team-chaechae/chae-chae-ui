@@ -15,6 +15,7 @@ import { useState } from 'react';
 import { Pagination } from '@/components/ui/Pagination';
 import { usePagination } from '@/hooks/usePagination';
 import { Button } from '@/components/ui/Button';
+import { OrderSortDropdown } from './OrderSortDropdown';
 
 type OrderListProps = {
   selected: OrderDto | null;
@@ -37,14 +38,20 @@ export const OrderList = ({
     startDate: '',
     endDate: '',
   });
+  const [sort, setSort] = useState('CREATED_AT_DESC');
   const { pagination, setPagination } = usePagination();
   const { isLoading, data, error } = useQuery<
     GetOrderListResponseType,
     Error,
     GetOrderListResponseType['ordersPage']
   >({
-    queryKey: ['orders', 'list', searchForm, pagination],
-    queryFn: () => getOrders(searchForm, pagination),
+    queryKey: [
+      'orders',
+      'list',
+      { searchForm, ...pagination, sort },
+    ],
+    queryFn: () =>
+      getOrders({ ...searchForm, ...pagination, sort }),
     select: (res) => res.ordersPage,
     placeholderData: keepPreviousData,
   });
@@ -55,22 +62,27 @@ export const OrderList = ({
   return (
     <section>
       <OrderSearchForm setSearchForm={setSearchForm} />
-
-      <div className='flex flex-col items-end gap-2 pt-10 pb-3'>
-        <div className='flex items-center gap-3'>
-          <Button className='bg-[#181F4A]' onClick={onEdit}>
-            수정
-          </Button>
-          <Button
-            className='border border-blue-100'
-            onClick={onDelete}
-          >
-            삭제
-          </Button>
+      <div className='flex items-end justify-between pb-3'>
+        <OrderSortDropdown sort={sort} setSort={setSort} />
+        <div className='flex flex-col items-end gap-2 pt-10 pb-3'>
+          <div className='flex items-center gap-3'>
+            <Button
+              className='bg-[#181F4A]'
+              onClick={onEdit}
+            >
+              수정
+            </Button>
+            <Button
+              className='border border-blue-100'
+              onClick={onDelete}
+            >
+              삭제
+            </Button>
+          </div>
+          <p className='text-xs text-neutral-400'>
+            * 승인 상태인 경우만 수정할 수 있습니다.
+          </p>
         </div>
-        <p className='text-xs text-neutral-400'>
-          * 승인 상태인 경우만 수정할 수 있습니다.
-        </p>
       </div>
       <div className='flex items-center'>
         <table className='w-full'>
@@ -140,7 +152,7 @@ export const OrderList = ({
             {data?.content.map((order, index) => (
               <tr
                 key={order.orderId}
-                className='odd:bg-white even:bg-gray-50 dark:odd:bg-gray-900 dark:even:bg-gray-950 border-t border-gray-100 dark:border-gray-800 hover:bg-indigo-50/40 dark:hover:bg-indigo-950/20 transition-colors'
+                className='border-t border-gray-100 dark:border-gray-800 hover:bg-indigo-50/40 dark:hover:bg-indigo-950/20 transition-colors'
               >
                 <td className='px-4 py-3'>
                   <Input

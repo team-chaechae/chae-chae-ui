@@ -12,6 +12,7 @@ export type GetOrderListRequestType = {
   createdBy: string;
   startDate: string;
   endDate: string;
+  sort: string;
 };
 export type OrderDto = {
   orderId: number;

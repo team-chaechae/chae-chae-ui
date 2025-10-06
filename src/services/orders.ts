@@ -9,8 +9,7 @@ import type { PaginationType } from '@/types/pagination';
 import { formatYMDWithDash } from '@/utils/dateUtils';
 
 export function getOrders(
-  request: GetOrderListRequestType,
-  pagination: PaginationType,
+  request: GetOrderListRequestType & PaginationType,
 ): Promise<GetOrderListResponseType> {
   const {
     id,
@@ -20,10 +19,11 @@ export function getOrders(
     createdBy,
     startDate,
     endDate,
+    sort,
   } = request;
   const params = new URLSearchParams({
-    page: String(pagination.page),
-    size: String(pagination.limit),
+    page: String(request.page),
+    size: String(request.limit),
   });
 
   if (id) params.append('orderId', id);
@@ -38,6 +38,7 @@ export function getOrders(
     );
   if (endDate)
     params.append('endDate', formatYMDWithDash(endDate));
+  if (sort) params.append('sort', sort);
 
   return fetchClient('GET', `/orders?${params.toString()}`);
 }
