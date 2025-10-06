@@ -5,6 +5,7 @@ import type {
 } from '@/types/order';
 import { fetchClient } from './fetchClient';
 import type { PaginationType } from '@/types/pagination';
+import { formatYMDWithDash } from '@/utils/dateUtils';
 
 export function getOrders(
   request: GetOrderListRequestType,
@@ -29,8 +30,13 @@ export function getOrders(
   if (category) params.append('productCategory', category);
   if (status) params.append('status', status);
   if (createdBy) params.append('createdBy', createdBy);
-  if (startDate) params.append('startDate', startDate);
-  if (endDate) params.append('endDate', endDate);
+  if (startDate)
+    params.append(
+      'startDate',
+      formatYMDWithDash(startDate),
+    );
+  if (endDate)
+    params.append('endDate', formatYMDWithDash(endDate));
 
   return fetchClient('GET', `/orders?${params.toString()}`);
 }
@@ -40,5 +46,10 @@ export function updateOrderQuantity({
 }: UpdateOrderQuantityRequestType) {
   return fetchClient('PATCH', `/orders/${id}`, {
     quantity,
+  });
+}
+export function updateOrderStatus(id: string) {
+  return fetchClient('PATCH', `/orders/${id}/status`, {
+    orderId: id,
   });
 }
