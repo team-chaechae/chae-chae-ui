@@ -39,6 +39,7 @@ export const FormDatePicker = ({
   locale = 'ko',
 }: FormDatePickeProps) => {
   const { control } = useFormContext();
+
   return (
     <div
       className={cn(
@@ -81,7 +82,12 @@ export const FormDatePicker = ({
                   className='pl-8'
                 />
               </PopoverTrigger>
-              <PopoverContent>
+              <PopoverContent
+                className='w-[300px] rounded-md border shadow-lg
+               bg-white text-neutral-900 border-neutral-200
+              dark:text-neutral-100 dark:border-neutral-700
+               hidden data-[state=open]:block'
+              >
                 <Calendar
                   value={field.value}
                   onChange={(next) => field.onChange(next)}
@@ -89,7 +95,7 @@ export const FormDatePicker = ({
                   maxDate={maxDate}
                   locale={locale}
                   calendarType='hebrew'
-                  className='!w-[350px]'
+                  className='!w-[270px] !pl-0 !py-0'
                   formatDay={(_, date) =>
                     date.toLocaleString('en', {
                       day: 'numeric',
