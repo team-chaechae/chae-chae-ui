@@ -14,12 +14,18 @@ import { OrderSearchForm } from './OrderSearchForm';
 import { useState } from 'react';
 import { Pagination } from '@/components/ui/Pagination';
 import { usePagination } from '@/hooks/usePagination';
+import { Button } from '@/components/ui/Button';
 
+type OrderListProps = {
+  onChangeSelected: (selected: OrderDto) => void;
+  onEdit: () => void;
+  onDelete: () => void;
+};
 export const OrderList = ({
   onChangeSelected,
-}: {
-  onChangeSelected: (selected: OrderDto) => void;
-}) => {
+  onEdit,
+  onDelete,
+}: OrderListProps) => {
   const [searchForm, setSearchForm] = useState({
     id: '',
     name: '',
@@ -47,7 +53,18 @@ export const OrderList = ({
   return (
     <section>
       <OrderSearchForm setSearchForm={setSearchForm} />
-      <div className='flex items-center pt-10'>
+      <div className='flex items-center justify-end gap-3 pt-10 pb-3'>
+        <Button className='bg-[#181F4A]' onClick={onEdit}>
+          수정
+        </Button>
+        <Button
+          className='border border-blue-100'
+          onClick={onDelete}
+        >
+          삭제
+        </Button>
+      </div>
+      <div className='flex items-center'>
         <table className='w-full'>
           <thead className='bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-300'>
             <tr className='text-left'>
