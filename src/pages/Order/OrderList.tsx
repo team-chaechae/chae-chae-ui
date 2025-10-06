@@ -12,6 +12,8 @@ import {
 } from '@tanstack/react-query';
 import { OrderSearchForm } from './OrderSearchForm';
 import { useState } from 'react';
+import { Pagination } from '@/components/ui/Pagination';
+import { usePagination } from '@/hooks/usePagination';
 
 export const OrderList = ({
   onChangeSelected,
@@ -27,13 +29,14 @@ export const OrderList = ({
     startDate: '',
     endDate: '',
   });
+  const { pagination, setPagination } = usePagination();
   const { isLoading, data, error } = useQuery<
     GetOrderListResponseType,
     Error,
     GetOrderListResponseType['ordersPage']
   >({
-    queryKey: ['orders', 'list', searchForm],
-    queryFn: () => getOrders(searchForm),
+    queryKey: ['orders', 'list', searchForm, pagination],
+    queryFn: () => getOrders(searchForm, pagination),
     select: (res) => res.ordersPage,
     placeholderData: keepPreviousData,
   });
@@ -45,7 +48,7 @@ export const OrderList = ({
     <section>
       <OrderSearchForm setSearchForm={setSearchForm} />
       <div className='flex items-center pt-10'>
-        <table>
+        <table className='w-full'>
           <thead className='bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-300'>
             <tr className='text-left'>
               <th
@@ -121,7 +124,11 @@ export const OrderList = ({
                     onClick={() => onChangeSelected(order)}
                   />
                 </td>
-                <td className='px-4 py-3'>{index + 1}</td>
+                <td className='px-4 py-3'>
+                  {pagination.page * pagination.limit +
+                    index +
+                    1}
+                </td>
                 <td className='px-4 py-3'>
                   {ORDER_STATUS[order.status]}
                 </td>
@@ -151,6 +158,11 @@ export const OrderList = ({
           </tbody>
         </table>
       </div>
+      <Pagination
+        totalPages={data?.page.totalPages ?? 1}
+        page={pagination.page}
+        onChange={setPagination}
+      />
     </section>
   );
 };

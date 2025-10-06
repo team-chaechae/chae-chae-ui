@@ -4,9 +4,11 @@ import type {
   UpdateOrderQuantityRequestType,
 } from '@/types/order';
 import { fetchClient } from './fetchClient';
+import type { PaginationType } from '@/types/pagination';
 
 export function getOrders(
   request: GetOrderListRequestType,
+  pagination: PaginationType,
 ): Promise<GetOrderListResponseType> {
   const {
     id,
@@ -18,8 +20,8 @@ export function getOrders(
     endDate,
   } = request;
   const params = new URLSearchParams({
-    page: String(0),
-    size: String(100),
+    page: String(pagination.page),
+    size: String(pagination.limit),
   });
 
   if (id) params.append('orderId', id);
