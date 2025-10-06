@@ -89,6 +89,7 @@ export const FormDatePicker = ({
                   maxDate={maxDate}
                   locale={locale}
                   calendarType='hebrew'
+                  className='!w-[350px]'
                   formatDay={(_, date) =>
                     date.toLocaleString('en', {
                       day: 'numeric',
@@ -102,7 +103,7 @@ export const FormDatePicker = ({
                   }
                   prev2Label={null}
                   next2Label={null}
-                  showNeighboringMonth
+                  showNeighboringMonth={false}
                 />
               </PopoverContent>
             </Popover>

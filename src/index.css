@@ -50,7 +50,7 @@ button:focus {
   @apply w-[550px] bg-white text-black px-3 py-5 rounded-md;
 }
 .react-calendar__navigation {
-  @apply mb-2;
+  @apply mb-2 flex items-center justify-center;
 }
 .react-calendar__navigation__label {
   @apply text-lg;

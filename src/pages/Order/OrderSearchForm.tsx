@@ -74,7 +74,7 @@ export const OrderSearchForm = ({
             placeholder='발주자'
           />
         </div>
-        <div className='grid grid-cols-3 gap-3'>
+        <div className='grid grid-cols-[2fr_2fr_1fr] gap-3'>
           <FormDatePicker
             name='startDate'
             placeholder='시작일'
