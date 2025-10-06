@@ -15,6 +15,7 @@ export const Order = () => {
   return (
     <div className='flex flex-col px-14 py-5'>
       <OrderList
+        selected={selected}
         onChangeSelected={setSelected}
         onEdit={() => setMode('edit')}
         onDelete={() => setMode('delete')}

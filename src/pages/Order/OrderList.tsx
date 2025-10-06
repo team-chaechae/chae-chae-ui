@@ -17,11 +17,13 @@ import { usePagination } from '@/hooks/usePagination';
 import { Button } from '@/components/ui/Button';
 
 type OrderListProps = {
+  selected: OrderDto | null;
   onChangeSelected: (selected: OrderDto) => void;
   onEdit: () => void;
   onDelete: () => void;
 };
 export const OrderList = ({
+  selected,
   onChangeSelected,
   onEdit,
   onDelete,
@@ -144,7 +146,10 @@ export const OrderList = ({
                   <Input
                     type='checkbox'
                     className='w-4 h-4'
-                    onClick={() => onChangeSelected(order)}
+                    checked={
+                      selected?.orderId === order.orderId
+                    }
+                    onChange={() => onChangeSelected(order)}
                   />
                 </td>
                 <td className='px-4 py-3'>
