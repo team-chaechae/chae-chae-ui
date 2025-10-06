@@ -59,12 +59,12 @@ export const OrderSearchForm = ({
             name='status'
             placeholder='상태'
             items={[
-              { label: '전체', value: 'all' },
-              { label: '판매중', value: 'available' },
-              { label: '대기', value: 'pending' },
+              { label: '전체', value: 'ALL' },
+              { label: '승인', value: 'APPROVED' },
+              { label: '완료', value: 'COMPLETED' },
               {
-                label: '품절',
-                value: 'soldOut',
+                label: '취소',
+                value: 'CANCELLED',
               },
             ]}
           />
