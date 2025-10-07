@@ -12,3 +12,7 @@ export const jobTitleOptions = [
   },
   { label: '부장', value: 'POSITION_GENERAL_MANAGER' },
 ];
+export const ORDER_SORT_OPTIONS = [
+  { label: '등록일순', value: 'CREATED_AT_DESC' },
+  { label: '갱신일순', value: 'UPDATED_AT_DESC' },
+];

@@ -6,7 +6,7 @@ const HIDE_SIDEBAR_PATHS = ['/login', '/signup'];
 export const MainLayout = () => {
   const { pathname } = useLocation();
   return (
-    <div className='flex h-full'>
+    <div className='flex min-h-screen'>
       {!HIDE_SIDEBAR_PATHS.includes(pathname) && (
         <Sidebar />
       )}

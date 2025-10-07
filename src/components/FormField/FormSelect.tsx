@@ -15,7 +15,6 @@ import {
 import { cn } from '@/utils/cn';
 import {
   SelectGroup,
-  SelectLabel,
   SelectPortal,
 } from '@radix-ui/react-select';
 import { ChevronDownIcon } from 'lucide-react';
@@ -82,7 +81,7 @@ export const FormSelect = ({
             >
               <SelectTrigger
                 className={cn(
-                  'relative flex h-10 w-full items-center gap-2 text-sm data-[placeholder]:text-neutral-500 data-[placeholder]:text-sm rounded-[4px] border border-black dark:border-white disabled:cursor-not-allowed',
+                  'relative flex h-10 w-full items-center gap-2 text-sm bg-white border-black text-neutral-900 data-[placeholder]:text-neutral-400 data-[placeholder]:text-sm rounded-[4px] border dark:border-white dark:bg-neutral-900 dark:text-neutral-100 disabled:cursor-not-allowed',
                   classNameInput,
                 )}
               >
@@ -103,12 +102,9 @@ export const FormSelect = ({
                   sideOffset={4}
                   align='start'
                   avoidCollisions={false}
-                  className='w-[var(--radix-select-trigger-width)] bg-neutral-300 dark:bg-black rounded-md shadow-md border border-gray-200'
+                  className='w-[var(--radix-select-trigger-width)] bg-white text-neutral-900 dark:bg-neutral-900 dark:text-neutral-100 rounded-md shadow-md'
                 >
                   <SelectGroup>
-                    <SelectLabel className='text-sm px-2 py-1'>
-                      {placeholder}
-                    </SelectLabel>
                     {items.map((item, index) => (
                       <SelectItem
                         key={index}

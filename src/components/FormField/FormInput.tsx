@@ -18,6 +18,7 @@ type FormInputProps = UseControllerProps & {
   classNameLabel?: string;
   icon?: React.ReactNode;
   labelPosition?: 'top' | 'right';
+  readOnly?: boolean;
   showErrorMessage?: boolean;
 };
 
@@ -33,6 +34,7 @@ export const FormInput = ({
   icon,
   rules,
   labelPosition = 'top',
+  readOnly,
   showErrorMessage,
 }: FormInputProps) => {
   const { control, formState } = useFormContext();
@@ -73,6 +75,7 @@ export const FormInput = ({
               type={type}
               placeholder={placeholder}
               className={classNameInput}
+              readOnly={readOnly}
               required={required}
             />
           )}

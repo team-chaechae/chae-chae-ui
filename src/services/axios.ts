@@ -11,30 +11,52 @@ axiosInstance.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('access_token');
     if (token) {
-      config.headers.set?.(
-        'Authorization',
-        `Bearer ${token}`,
-      );
+      config.headers = config.headers ?? {};
+      config.headers.Authorization = `Bearer ${token}`;
     }
+
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  },
+  (error) => Promise.reject(error),
 );
 
 axiosInstance.interceptors.response.use(
-  (response) => {
-    const newAccessToken =
-      response.headers['authorization'];
-    if (newAccessToken?.startsWith('Bearer ')) {
-      const token = newAccessToken.replace('Bearer ', '');
-      localStorage.setItem('access_token', token);
-    }
+  async (response) => {
+    const authHeader = response.headers?.['authorization'];
+    // typeof 조건을 안넣어주면 에러가 발함
+    const hasBearer =
+      typeof authHeader === 'string' &&
+      authHeader.startsWith('Bearer ');
+    if (!hasBearer) return response;
 
+    const newToken = authHeader.replace('Bearer ', '');
+    const prevToken = localStorage.getItem('access_token');
+
+    // 처음 받는 토큰(로그인 직후) or 기존과 다른 토큰이면 저장 + defaults 갱신
+    if (
+      !prevToken ||
+      (newToken && newToken !== prevToken)
+    ) {
+      localStorage.setItem('access_token', newToken);
+      axiosInstance.defaults.headers.common[
+        'Authorization'
+      ] = `Bearer ${newToken}`;
+
+      const haveToRetry =
+        newToken && prevToken !== newToken;
+
+      if (haveToRetry) {
+        const newConfig = {
+          ...response.config,
+          headers: {
+            ...(response.config.headers || {}),
+            Authorization: `Bearer ${newToken}`,
+          },
+        };
+        return axiosInstance(newConfig);
+      }
+    }
     return response;
   },
-  (error) => {
-    return Promise.reject(error);
-  },
+  (error) => Promise.reject(error),
 );

@@ -8,19 +8,12 @@ type ApiResponse<T> = {
   data: T;
 };
 
-type FetchOptions = {
-  method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
-  endpoint: string;
-  data?: FormData | string | Record<string, unknown>;
-  headers?: Record<string, string>;
-};
-
-export const fetchClient = async <T>({
-  method = 'GET',
-  endpoint,
-  data,
-  headers,
-}: FetchOptions) => {
+export const fetchClient = async <T>(
+  method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH',
+  endpoint: string,
+  data?: FormData | string | Record<string, unknown>,
+  headers?: Record<string, string>,
+): Promise<T> => {
   try {
     const response = await axiosInstance.request<
       ApiResponse<T>

@@ -9,6 +9,7 @@ import {
 import { Home } from './pages/Home.tsx';
 import { Signup } from './pages/Signup';
 import { Login } from './pages/Login';
+import { Order } from './pages/Order';
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,7 @@ const router = createBrowserRouter([
       { index: true, Component: Home },
       { path: 'signup', Component: Signup },
       { path: 'login', Component: Login },
+      { path: 'orders', Component: Order },
     ],
   },
 ]);
